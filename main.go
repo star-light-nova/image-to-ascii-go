@@ -26,12 +26,12 @@ func isMultipart(requestContentType string) bool {
 }
 
 func toOutput(bytes [][]byte) []string {
-    output := []string{}
-    for _, arr := range bytes {
-        output = append(output, string(arr))
-    }
+	output := []string{}
+	for _, arr := range bytes {
+		output = append(output, string(arr))
+	}
 
-    return output
+	return output
 }
 
 func bodyPreprocessor(requestBody io.Reader) []byte {

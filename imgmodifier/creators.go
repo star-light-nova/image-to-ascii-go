@@ -1,44 +1,46 @@
 package imgmodifier
 
 import (
-	"fmt"
-
 	"github.com/davidbyttow/govips/v2/vips"
 )
 
-// TODO: Optimize
-func createBrightnessMatrix(img *vips.ImageRef) [][]uint8 {
-	// Might be solved by this?
-	// However, we still have to traverse through
-	// each pixel, to convert to the ASCII (it takes a lot of time)
-	// err := vips.Pixelate(img, 255.0)
-	// if err != nil {
-	//     panic(err)
-	// }
-    bytes, _, err := img.ExportPng(&vips.PngExportParams{})
-    // Go through the bytes and count the average and try to convert to AScII
-    fmt.Println(bytes)
-	goImg, err := img.ToImage(&vips.ExportParams{})
+func createBrightnessMatrix(img *vips.ImageRef) [][]byte {
+	bytes, err := img.ToBytes()
 	if err != nil {
 		panic(err)
 	}
 
-	bounds := goImg.Bounds()
+	var bm = make([][]byte, img.Height())
+	hCnt, wCnt := 0, 0
+	bm[hCnt] = make([]byte, img.Width())
 
-	var bm = make([][]uint8, bounds.Max.Y)
+	for i := 0; i <= len(bytes)-4; i += 4 {
+		if wCnt == img.Width() {
+			wCnt = 0
 
-	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
-		bm[y] = make([]uint8, bounds.Max.X)
+			hCnt++
+			if hCnt == img.Height() {
+				break
+			}
 
-		for x := bounds.Min.X; x < bounds.Max.X; x++ {
-			bm[y][x] = coloursAverageNative(goImg.At(x, y))
+			bm[hCnt] = make([]byte, img.Width())
 		}
+
+		r := bytes[i]
+		g := bytes[i+1]
+		b := bytes[i+2]
+
+		avg := (r + g + b) / 3
+
+		bm[hCnt][wCnt] = avg
+
+		wCnt++
 	}
 
 	return bm
 }
 
-func createAsciiMatrix(bm [][]uint8) [][]byte {
+func createAsciiMatrix(bm [][]byte) [][]byte {
 	chars := make([][]byte, len(bm))
 
 	for i := 0; i < len(bm); i++ {
