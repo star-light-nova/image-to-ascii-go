@@ -4,6 +4,7 @@ import (
 	"img-to-ascii/imgmodifier"
 	"io"
 	"io/ioutil"
+	"net/http"
 	"strconv"
 	"strings"
 
@@ -12,9 +13,21 @@ import (
 
 func main() {
 	router := gin.Default()
+
+	router.LoadHTMLGlob("./pages/*.tmpl")
+
 	router.POST("/", getImage)
+	router.GET("/", getMainPage)
 
 	router.Run()
+}
+
+type MyData struct {
+	URL string
+}
+
+func getMainPage(context *gin.Context) {
+	context.HTML(http.StatusOK, "index.tmpl", &MyData{URL: context.ClientIP()})
 }
 
 // Requests from front-end form.
