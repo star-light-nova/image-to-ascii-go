@@ -14,10 +14,13 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.LoadHTMLGlob("./pages/*.tmpl")
+	router.LoadHTMLGlob("./index.tmpl")
 
 	router.POST("/", getImage)
 	router.GET("/", getMainPage)
+	router.GET("/favicon.ico", func(ctx *gin.Context) {
+		ctx.File("./favicon.ico")
+	})
 
 	router.Run()
 }
@@ -27,7 +30,7 @@ type MyData struct {
 }
 
 func getMainPage(context *gin.Context) {
-	context.HTML(http.StatusOK, "index.tmpl", &MyData{URL: context.ClientIP()})
+	context.HTML(http.StatusOK, "index.tmpl", &MyData{URL: "http://localhost:8080"})
 }
 
 // Requests from front-end form.
