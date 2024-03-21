@@ -10,7 +10,8 @@
 
 <body>
     <label id="resizeScaleId" for="resize_scale">0.5</label>
-    <input id="resizeInputRangeId" type="range" max="1" min="0.1" step="0.1" name="resize_scale" value="0.5" onchange="changeValue(this)">
+    <input id="resizeInputRangeId" type="range" max="1" min="0.1" step="0.1" name="resize_scale"
+        onchange="changeValue(this)">
     <form id="formId" action="http://localhost:8080" method="post" enctype="multipart/form-data">
         <label for="limg"></label>
         <input type="file" id="limg" name="img">
@@ -20,6 +21,7 @@
     <script>
         function changeValue(input) {
             document.getElementById("resizeScaleId").innerText = input.value;
+            document.getElementById("resizeInputRangeId").value = input.value;
         }
 
         function applyResize() {

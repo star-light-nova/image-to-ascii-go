@@ -1,12 +1,9 @@
 package main
 
 import (
-	// "fmt"
-	// "encoding/json"
 	"img-to-ascii/imgmodifier"
 	"io"
 	"io/ioutil"
-	"net/http"
 	"strconv"
 	"strings"
 
@@ -64,13 +61,13 @@ func getImage(context *gin.Context) {
 		}
 
 		imgBuf := bodyPreprocessor(f)
-		bytes := imgmodifier.ImgToAscii(imgBuf, resizeScale)
+		imgmodifier.ImgToAscii(imgBuf, resizeScale)
 
-		context.JSON(http.StatusOK, toOutput(bytes))
+		context.FileAttachment("./asciioutput.txt", "asciioutput.txt")
 	} else {
 		imgBuf := bodyPreprocessor(body)
-		bytes := imgmodifier.ImgToAscii(imgBuf, resizeScale)
+		imgmodifier.ImgToAscii(imgBuf, resizeScale)
 
-		context.JSON(http.StatusOK, toOutput(bytes))
+		context.FileAttachment("./asciioutput.txt", "asciioutput.txt")
 	}
 }

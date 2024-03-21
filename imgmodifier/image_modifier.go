@@ -3,8 +3,6 @@ package imgmodifier
 import (
 	"github.com/davidbyttow/govips/v2/vips"
 	"os"
-	// "fmt"
-	// "encoding/json"
 )
 
 func ImgToAscii(imgBytes []byte, resizeScale float64) [][]byte {
@@ -26,7 +24,7 @@ func ImgToAscii(imgBytes []byte, resizeScale float64) [][]byte {
 
 	chars := createCharMatrix(img)
 
-	f, err := os.Create("test.txt")
+	f, err := os.Create("asciioutput.txt")
 	if err != nil {
 		panic(err)
 	}
