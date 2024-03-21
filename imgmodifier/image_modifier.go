@@ -24,8 +24,7 @@ func ImgToAscii(imgBytes []byte, resizeScale float64) [][]byte {
 		panic(err)
 	}
 
-	brightnessMatrix := createBrightnessMatrix(img)
-	chars := createAsciiMatrix(brightnessMatrix)
+	chars := createCharMatrix(img)
 
 	f, err := os.Create("test.txt")
 	if err != nil {
