@@ -14,10 +14,11 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.LoadHTMLGlob("./index.tmpl")
+	router.LoadHTMLFiles("./index.tmpl", "./pages/404.tmpl")
 
 	router.POST("/", getImage)
 	router.GET("/", getMainPage)
+	router.NoRoute(notFound)
 
 	assets := router.Group("/assets/")
 	assets.StaticFile("favicon.ico", "./favicon.ico")
@@ -25,6 +26,10 @@ func main() {
 	assets.StaticFile("index.js", "./assets/index.js")
 
 	router.Run()
+}
+
+func notFound(context *gin.Context) {
+	context.HTML(http.StatusOK, "404.tmpl", nil)
 }
 
 type MainPageData struct {
