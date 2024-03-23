@@ -21,16 +21,22 @@ func main() {
 	router.GET("/favicon.ico", func(ctx *gin.Context) {
 		ctx.File("./favicon.ico")
 	})
+	router.GET("/styles.css", func(ctx *gin.Context) {
+		ctx.File("./assets/style.css")
+	})
+	router.GET("/index.js", func(ctx *gin.Context) {
+		ctx.File("./assets/index.js")
+	})
 
 	router.Run()
 }
 
-type MyData struct {
+type MainPageData struct {
 	URL string
 }
 
 func getMainPage(context *gin.Context) {
-	context.HTML(http.StatusOK, "index.tmpl", &MyData{URL: "http://localhost:8080"})
+	context.HTML(http.StatusOK, "index.tmpl", &MainPageData{URL: "http://localhost:8080"})
 }
 
 // Requests from front-end form.

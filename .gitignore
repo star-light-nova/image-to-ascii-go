@@ -22,4 +22,4 @@ go.work
 
 # fooking ds store
 *.DS_Store
-*.asciioutput.txt
+*.asciioutput.*.txt

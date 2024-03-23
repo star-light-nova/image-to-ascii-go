@@ -4,38 +4,22 @@
 <head>
     <title>Image to ASCII</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
     <label id="resizeScaleId" for="resize_scale"></label>
-    <input id="resizeInputRangeId" type="range" max="1" min="0.1" step="0.1" name="resize_scale"
-        onchange="changeValue(this)">
+    <input id="resizeInputRangeId" type="range" max="1.0" min="0.1" step="0.1" name="resize_scale"
+        onmousemove="changeValue(this)">
     <form id="formId" action={{ .URL }} method="post" enctype="multipart/form-data">
         <label for="limg"></label>
         <input type="file" id="limg" name="img">
-        <input type="submit" Value="Submit" onclick="applyResize()">
+        <input id="submit-button" type="submit" value="Submit" onclick="submit">
     </form>
 
-    <script>
-        const DEFALT_RESIZE_SCALE = 0.5;
-        document.getElementById("resizeScaleId").innerText = DEFALT_RESIZE_SCALE;
-        document.getElementById("resizeInputRangeId").value = DEFALT_RESIZE_SCALE;
-
-        function changeValue(input) {
-            document.getElementById("resizeScaleId").innerText = input.value;
-            document.getElementById("resizeInputRangeId").value = input.value;
-        }
-
-        function applyResize() {
-            const resizeScale = document.getElementById("resizeInputRangeId").value;
-
-            const form = document.getElementById("formId");
-            form.action = `{{ .URL }}?resize_scale=${resizeScale}`;
-            console.log(form.action)
-        }
-    </script>
+    <script src="/index.js"></script>
 </body>
 
 </html>

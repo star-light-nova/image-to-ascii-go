@@ -1,0 +1,38 @@
+* {
+    font-family: Optima, sans-serif;    
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #222831;
+    color: #EEEEEE;
+    overflow: hidden;
+}
+
+input {
+    background-color: #76ABAE;
+    border-radius: 0.5625rem;
+    padding: 0.5rem;
+    margin: 0.25rem;
+    color: #EEEEEE;
+    border-width: medium;
+    border-color: #76ABAE;
+    border-style: solid;
+}
+
+#resizeScaleId {
+    color: rgba(255, 255, 255, .3);
+    font-size: 45.5625rem;
+    position: absolute;
+    top: auto;
+    left: calc(50% - 1013px / 2);
+    z-index: -1;
+}
+
+#submit-button {
+    height: 43px;
+}
