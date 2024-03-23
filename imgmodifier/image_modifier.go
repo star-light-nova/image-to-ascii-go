@@ -6,10 +6,7 @@ import (
 )
 
 func ImgToAscii(imgBytes []byte, resizeScale float64) [][]byte {
-	vips.Startup(
-		&vips.Config{
-			ConcurrencyLevel: 2,
-		})
+	vips.Startup(&vips.Config{})
 	// defer vips.Shutdown()
 
 	img, err := vips.NewImageFromBuffer(imgBytes)
