@@ -12,6 +12,7 @@ func createCharMatrix(img *vips.ImageRef) [][]byte {
 
 	var chars = make([][]byte, img.Height())
 	hCnt, wCnt := 0, 0
+
 	chars[hCnt] = make([]byte, img.Width())
 
 	for i := 0; i <= len(bytes)-4; i += 4 {
@@ -26,11 +27,8 @@ func createCharMatrix(img *vips.ImageRef) [][]byte {
 			chars[hCnt] = make([]byte, img.Width())
 		}
 
-		r := bytes[i]
-		g := bytes[i+1]
-		b := bytes[i+2]
-
-		avg := (r + g + b) / 3
+		//      red        green        blue
+		avg := (bytes[i] + bytes[i+1] + bytes[i+2]) / 3
 
 		chars[hCnt][wCnt] = convertToAscii(avg)
 

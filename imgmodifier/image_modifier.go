@@ -7,6 +7,7 @@ import (
 
 func ImgToAscii(imgBytes []byte, resizeScale float64) [][]byte {
 	vips.Startup(&vips.Config{})
+	// Find out how to gracefully shutdown after finishing the server.
 	// defer vips.Shutdown()
 
 	img, err := vips.NewImageFromBuffer(imgBytes)
@@ -22,13 +23,14 @@ func ImgToAscii(imgBytes []byte, resizeScale float64) [][]byte {
 	chars := createCharMatrix(img)
 
 	f, err := os.Create("asciioutput.txt")
+	defer f.Close()
 	if err != nil {
 		panic(err)
 	}
 
 	for i := 0; i < len(chars); i++ {
 		f.Write(chars[i])
-		f.Write([]byte{10})
+		f.Write([]byte{10}) // \n
 	}
 
 	return chars

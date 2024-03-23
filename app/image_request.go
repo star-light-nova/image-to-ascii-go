@@ -16,6 +16,27 @@ func processImageRequest(context *gin.Context) {
 	imgmodifier.ImgToAscii(imgBuf, resizeScale)
 }
 
+func parseResizeScale(context *gin.Context) float64 {
+	resizeScale, err := strconv.ParseFloat(context.Request.URL.Query().Get("resize_scale"), 64)
+	// TODO: Possible errors?
+	if err != nil {
+		resizeScale = 1.0
+	}
+
+	return resizeScale
+}
+
+func bodyPreprocessor(requestBody io.ReadCloser) []byte {
+	imgBuf, err := ioutil.ReadAll(requestBody)
+	defer requestBody.Close()
+
+	if err != nil {
+		panic(err)
+	}
+
+	return imgBuf
+}
+
 func bodyReader(context *gin.Context) io.ReadCloser {
 	if isMultipart(context.ContentType()) {
 		mpf, err := context.MultipartForm()
@@ -35,28 +56,7 @@ func bodyReader(context *gin.Context) io.ReadCloser {
 	return context.Request.Body
 }
 
-func parseResizeScale(context *gin.Context) float64 {
-	resizeScale, err := strconv.ParseFloat(context.Request.URL.Query().Get("resize_scale"), 64)
-	// TODO: Possible errors?
-	if err != nil {
-		resizeScale = 1.0
-	}
-
-	return resizeScale
-}
-
 // Requests from front-end form.
 func isMultipart(requestContentType string) bool {
 	return strings.Contains(requestContentType, "multipart/form-data")
-}
-
-func bodyPreprocessor(requestBody io.ReadCloser) []byte {
-	imgBuf, err := ioutil.ReadAll(requestBody)
-	defer requestBody.Close()
-
-	if err != nil {
-		panic(err)
-	}
-
-	return imgBuf
 }
