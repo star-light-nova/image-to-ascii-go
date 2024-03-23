@@ -17,7 +17,7 @@ func ImgToAscii(imgBytes []byte, resizeScale float64) [][]byte {
 		panic(err)
 	}
 
-	err = img.Resize(resizeScale, vips.KernelLanczos2)
+	err = img.Resize(resizeScale, vips.KernelLanczos3)
 	if err != nil {
 		panic(err)
 	}

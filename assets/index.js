@@ -1,4 +1,4 @@
-const DEFALT_RESIZE_SCALE = 0.5;
+const DEFALT_RESIZE_SCALE = "1.0";
 const RESIZE_SCALE_INPUT = document.getElementById("resizeScaleId");
 const RESIZE_INPUT_RANGE = document.getElementById("resizeInputRangeId");
 

@@ -22,6 +22,7 @@ input {
     border-width: medium;
     border-color: #76ABAE;
     border-style: solid;
+    cursor: pointer;
 }
 
 #resizeScaleId {
@@ -35,4 +36,9 @@ input {
 
 #submit-button {
     height: 43px;
+}
+
+#resizeInputRangeId {
+    padding: 0px;
+    border: none;
 }
