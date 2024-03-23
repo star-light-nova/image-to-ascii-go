@@ -18,15 +18,11 @@ func main() {
 
 	router.POST("/", getImage)
 	router.GET("/", getMainPage)
-	router.GET("/favicon.ico", func(ctx *gin.Context) {
-		ctx.File("./favicon.ico")
-	})
-	router.GET("/styles.css", func(ctx *gin.Context) {
-		ctx.File("./assets/style.css")
-	})
-	router.GET("/index.js", func(ctx *gin.Context) {
-		ctx.File("./assets/index.js")
-	})
+
+	assets := router.Group("/assets/")
+	assets.StaticFile("favicon.ico", "./favicon.ico")
+	assets.StaticFile("styles.css", "./assets/style.css")
+	assets.StaticFile("index.js", "./assets/index.js")
 
 	router.Run()
 }

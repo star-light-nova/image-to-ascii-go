@@ -5,12 +5,13 @@
     <title>Image to ASCII</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="/assets/styles.css">
 </head>
 
 <body>
     <label id="resizeScaleId" for="resize_scale"></label>
+    <label for="resize_scale" style="padding-left: 0.5rem;">Scale</label>
     <input id="resizeInputRangeId" type="range" max="1.0" min="0.1" step="0.1" name="resize_scale"
         onmousemove="changeValue(this)">
     <form id="formId" action={{ .URL }} method="post" enctype="multipart/form-data">
@@ -19,7 +20,7 @@
         <input id="submit-button" type="submit" value="Submit" onclick="submit">
     </form>
 
-    <script src="/index.js"></script>
+    <script src="/assets/index.js"></script>
 </body>
 
 </html>
