@@ -1,12 +1,13 @@
 package app
 
 import (
-	"github.com/gin-gonic/gin"
 	"img-to-ascii/imgmodifier"
 	"io"
 	"io/ioutil"
 	"strconv"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 func processImageRequest(context *gin.Context) {
@@ -44,6 +45,9 @@ func bodyReader(context *gin.Context) io.ReadCloser {
 			panic(err)
 		}
 
+		// If just click "Submit" it will fail here
+		// Because the array is empty.
+        // TODO: Fix.
 		f, err := mpf.File["img"][0].Open()
 		defer f.Close()
 		if err != nil {
